@@ -26,3 +26,4 @@ export function validateLuhn(cardNumber: string): boolean {
 
   return sum % 10 === 0;
 }
+
