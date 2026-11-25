@@ -1,0 +1,101 @@
+// VisaPay Prisma Schema (SQLite for local dev & prototype, PostgreSQL compatible)
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Merchant {
+  id             String          @id @default(uuid())
+  email          String          @unique
+  passwordHash   String
+  name           String
+  apiKey         String          @unique @default(uuid())
+  webhookUrl     String          @default("https://api.merchant-demo.dev/webhooks/visapay")
+  webhookSecret  String          @default("whsec_visapay_hmac_secret_2026")
+  transactions   Transaction[]
+  paymentIntents PaymentIntent[]
+  webhookEvents  WebhookEvent[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+}
+
+model Transaction {
+  id             String   @id @default(uuid())
+  merchantId     String
+  merchant       Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  amount         Float
+  refundedAmount Float    @default(0)
+  currency       String   @default("USD")
+  status         String   // APPROVED, DECLINED, PENDING, REFUNDED, PARTIALLY_REFUNDED, FAILED
+  paymentRail    String   @default("card") // card, upi, netbanking, wallet, emi
+  network        String   // visa, mastercard, amex, discover, upi, netbanking, wallet, emi
+  cardLast4      String
+  authCode       String
+  threeDsStatus  String   @default("NOT_REQUIRED") // NOT_REQUIRED, CHALLENGED, AUTHENTICATED, FAILED
+  riskScore      Int      @default(12)
+  idempotencyKey String   @unique
+  customerName   String
+  customerEmail  String
+  failureReason  String?
+  latencyMs      Int?
+  metadataJson   String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([merchantId])
+  @@index([status])
+  @@index([paymentRail])
+  @@index([createdAt])
+}
+
+model PaymentIntent {
+  id            String   @id @default(uuid())
+  merchantId    String
+  merchant      Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  title         String
+  description   String?
+  amount        Float
+  currency      String   @default("USD")
+  status        String   @default("REQUIRES_PAYMENT_METHOD") // REQUIRES_PAYMENT_METHOD, REQUIRES_ACTION, SUCCEEDED, EXPIRED
+  lineItemsJson String?
+  transactionId String?
+  expiresAt     DateTime
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([merchantId])
+  @@index([status])
+}
+
+model WebhookEvent {
+  id             String   @id @default(uuid())
+  merchantId     String
+  merchant       Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  eventType      String   // payment_intent.succeeded, charge.failed, charge.refunded, three_ds.challenged
+  transactionId  String?
+  payloadJson    String
+  hmacSignature  String
+  targetUrl      String
+  statusCode     Int      @default(200)
+  deliveryStatus String   @default("DELIVERED") // DELIVERED, RETRYING, FAILED
+  attempts       Int      @default(1)
+  latencyMs      Int      @default(42)
+  createdAt      DateTime @default(now())
+
+  @@index([merchantId])
+  @@index([eventType])
+  @@index([createdAt])
+}
+
+model IdempotencyRecord {
+  id             String   @id @default(uuid())
+  idempotencyKey String   @unique
+  statusCode     Int
+  responseJson   String
+  createdAt      DateTime @default(now())
+}

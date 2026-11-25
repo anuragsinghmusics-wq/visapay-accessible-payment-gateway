@@ -1,0 +1,19 @@
+services:
+  visapay-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: visapay-gateway
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - NODE_ENV=production
+      - DATABASE_URL=file:/app/server/prisma/prod.db
+      - JWT_SECRET=${JWT_SECRET:-replace_with_secure_jwt_secret}
+    volumes:
+      - visapay-data:/app/server/prisma
+
+volumes:
+  visapay-data:

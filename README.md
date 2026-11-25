@@ -1,70 +1,29 @@
-# VisaPay — Accessible Digital Payments Gateway & Merchant Dashboard
+# VisaPay — Enterprise Multi-Rail Payment Gateway & Merchant Console
 
-[![React](https://img.shields.io/badge/React-18%2F19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Accessibility](https://img.shields.io/badge/Accessibility-WCAG%202.1%20AA%20%7C%20Section%20508-brightgreen?style=for-the-badge&logo=w3c&logoColor=white)](https://www.w3.org/WAI/standards-guidelines/wcag/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-Responsive%20Design-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![Accessibility: WCAG 2.0 AA](https://img.shields.io/badge/Accessibility-WCAG%202.0%20AA%20%7C%20Section%20508-brightgreen?style=for-the-badge&logo=w3c&logoColor=white)](https://www.w3.org/WAI/standards-guidelines/wcag/)
+[![Axe-Core Audited](https://img.shields.io/badge/Axe--Core-0%20Violations-success?style=for-the-badge&logo=deque&logoColor=white)](https://www.deque.com/axe/)
+[![TypeScript: 5.4+](https://img.shields.io/badge/TypeScript-5.4+-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![React: 18](https://img.shields.io/badge/React-18.3-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![Express: 4](https://img.shields.io/badge/Express-4.19-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![Prisma: ORM](https://img.shields.io/badge/Prisma-5.22%20(SQLite)-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
+[![Docker](https://img.shields.io/badge/Docker-Multi--Stage-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-A responsive, high-reliability web application and merchant analytics platform engineered with strict **WCAG 2.0 / Section 508 accessibility compliance**, **User-Centered Design (UCD)** principles, and **Object-Oriented Design (OOD)** in TypeScript. Designed to simulate secure, low-latency digital payment processing, dynamic currency conversion, and accessible customer checkout across desktop (Mac/PC) and mobile devices.
+**VisaPay** is a full-stack, accessible digital payment gateway and merchant operations suite built with **React 18**, **TypeScript**, **Express**, **Prisma ORM**, and **WCAG 2.0 Level AA / Section 508** engineering. It models a commercial multi-rail payment processor—supporting **Cards (with 3D Visualizer & 3D Secure 2.0)**, **Camera-Scannable ISO/IEC 18004 UPI QR**, **NetBanking**, **Digital Wallets**, and **EMI Installments**—backed by **Object-Oriented Design (OOD)**, **UUID Idempotency**, **Full & Partial Refunds**, **Hosted Payment Links**, and **HMAC-SHA256 Webhooks**.
 
 ---
 
 ## Table of Contents
-- [Project Overview & Motivation](#project-overview--motivation)
-- [Accessibility & Usability Engineering (WCAG 2.0 / Section 508)](#accessibility--usability-engineering-wcag-20--section-508)
-- [User-Centered Design (UCD) & Usability Research](#user-centered-design-ucd--usability-research)
-- [System Architecture](#system-architecture)
-- [Key Features](#key-features)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [Automated Testing & Accessibility Audits](#automated-testing--accessibility-audits)
-- [API Reference](#api-reference)
-- [Author & Contact](#author--contact)
-
----
-
-## Project Overview & Motivation
-
-Digital payments must be universally accessible, ultra-secure, and intuitive for everyone, everywhere. Millions of users—including those with visual, motor, or cognitive impairments—rely on assistive technologies like screen readers and keyboard navigation to conduct daily financial transactions.
-
-**VisaPay** was created to bridge the gap between financial security and inclusive design. It provides:
-1. An **Accessible Checkout Flow**: Complying with **WCAG 2.0 Level AA** and **Section 508** standards.
-2. A **Merchant Analytics Dashboard**: Real-time transaction monitoring, payment telemetry, and settlement breakdown.
-3. A **Robust Backend API**: Tokenized transaction processing, input sanitation, idempotency, and error boundary fallbacks.
-
----
-
-## Accessibility & Usability Engineering (WCAG 2.0 / Section 508)
-
-Built from the ground up for assistive technology compliance:
-
-| Requirement | Implementation Detail | WCAG 2.0 Criterion |
-|---|---|---|
-| **Keyboard Navigation** | Complete tab sequence traversal; visible focus rings with `outline-offset-2`; custom skip-to-content links. | 2.1.1 (Keyboard), 2.4.7 (Focus Visible) |
-| **Screen Reader Semantics** | Semantic HTML5 (`<main>`, `<nav>`, `<form>`, `<fieldset>`) paired with WAI-ARIA (`aria-live="polite"` for transaction updates, `aria-describedby` for validation errors). | 1.3.1 (Info and Relationships), 4.1.2 (Name, Role, Value) |
-| **Color Contrast & Readability** | 4.8:1+ contrast ratio on body text, 3:1+ on UI components and icons; dedicated High-Contrast mode. | 1.4.3 (Contrast Minimum) |
-| **Error Handling & Feedback** | Contextual inline error announcements, non-color-dependent warning icons, and automatic focus shift to invalid inputs upon submission. | 3.3.1 (Error Identification), 3.3.2 (Labels/Instructions) |
-| **Responsive Mobile Layouts** | Fluid grid breakpoints, touch target minimums of 48x48px, and zero horizontal scrolling on viewports down to 320px width. | 1.4.10 (Reflow), 2.5.5 (Target Size) |
-
----
-
-## User-Centered Design (UCD) & Usability Research
-
-The checkout flow underwent iterative design and testing using user-centered data:
-
-1. **User Research Phase**: Conducted usability testing sessions across 20 participants with diverse devices (macOS Safari, Windows Chrome, iOS VoiceOver, Android TalkBack).
-2. **Identified Bottlenecks**:
-   * Multi-input expiration date formatting caused 22% validation failures.
-   * Floating labels without explicit fieldset associations confused screen readers.
-3. **Iterative Solutions**:
-   * Re-engineered credit card number grouping with automatic cursor advance and real-time Luhn algorithm checksum validation.
-   * Consolidated the checkout into a single-column, distraction-free view with dynamic order summary.
-4. **Quantified Results**:
-   * **28% reduction in checkout error rate**.
-   * **35% faster transaction completion time** (from 68s to 44s average).
-   * **100% pass score on automated Axe-core accessibility audits**.
+1. [System Architecture](#system-architecture)
+2. [Key Features](#key-features)
+3. [Software Engineering Principles & Patterns](#software-engineering-principles--patterns)
+4. [Accessibility Engineering (WCAG 2.0 AA / Section 508)](#accessibility-engineering-wcag-20-aa--section-508)
+5. [Monorepo Project Structure](#monorepo-project-structure)
+6. [Quickstart & Local Setup](#quickstart--local-setup)
+7. [Sandbox Credentials & Deterministic Test Scenarios](#sandbox-credentials--deterministic-test-scenarios)
+8. [Automated Testing & Accessibility Audits](#automated-testing--accessibility-audits)
+9. [Docker Deployment](#docker-deployment)
+10. [REST API Reference](#rest-api-reference)
 
 ---
 
@@ -72,78 +31,96 @@ The checkout flow underwent iterative design and testing using user-centered dat
 
 ```mermaid
 flowchart TD
-    User["End Consumer / Merchant (Mac, PC, Mobile)"] -->|HTTPS / Responsive UI| Frontend["VisaPay Accessible React Client"]
-    
-    subgraph Client Architecture ["Client-Side UX & Accessibility Layer"]
-        Frontend --> FocusMgr["Focus & Keyboard Manager"]
-        Frontend --> ARIA["ARIA Live Regions & Announcements"]
-        Frontend --> FormValidation["Client Luhn & Tokenizer Engine"]
+    User["Customer / Merchant (Desktop, Mobile, Screen Reader, Keyboard)"] -->|HTTPS / WAI-ARIA UI| ReactClient["React 18 Client (Vite + Tailwind)"]
+
+    subgraph ClientLayer ["Client UX, Security & Accessibility Layer"]
+        ReactClient --> Card3D["3D Card Visualizer + Luhn Mod 10"]
+        ReactClient --> RealQR["ISO/IEC 18004 UPI QR & Handshake"]
+        ReactClient --> ThreeDS["3D Secure 2.0 OTP Modal (FocusTrap)"]
+        ReactClient --> A11y["SkipLink, LiveAnnouncer, ErrorBoundary"]
     end
 
-    subgraph Service Backend ["Secure Payment Service (Express / Node)"]
-        FormValidation -->|REST API / Tokenized Request| API["Payment Gateway Controller"]
-        API --> Idempotency["Idempotency Filter (UUID Check)"]
-        Idempotency --> PaymentProcessor["Transaction Settlement Engine (OOD)"]
-        PaymentProcessor --> DB[("PostgreSQL / In-Memory Ledger")]
-    end
+    ReactClient -->|REST API + Idempotency-Key UUID| ExpressAPI["Express Gateway Service (:3001)"]
 
-    PaymentProcessor -->|200 OK / Receipt| Frontend
+    subgraph BackendLayer ["Settlement, Risk & Telemetry Engine"]
+        ExpressAPI --> Security["OWASP Headers + JWT Auth + Zod Validation"]
+        ExpressAPI --> Idempotency["Idempotency Filter (X-Cache-Lookup: HIT)"]
+        ExpressAPI --> Risk["RiskEngine (Velocity & 3DS2 Challenge)"]
+        ExpressAPI --> OOD["Polymorphic OOD Domain Core"]
+
+        OOD --> Factory["PaymentMethodFactory"]
+        OOD --> Strategy["PaymentStrategyResolver (VisaNet, MC, Amex, UPI, NB, Wallet, EMI)"]
+        OOD --> StateMachine["Transaction State Machine (Approve / Decline / Partial & Full Refund)"]
+
+        StateMachine --> Prisma["Prisma ORM (SQLite)"]
+        StateMachine --> Webhooks["WebhookService (HMAC-SHA256 Signed Events)"]
+    end
 ```
 
 ---
 
 ## Key Features
 
-- **Tokenized Card Input**: Sensitive card details are masked and tokenized before simulation submission, following PCI-DSS guidelines.
-- **Object-Oriented Design (OOD)**: Structured in TypeScript using domain models (`PaymentMethod`, `CreditCard`, `Transaction`, `MerchantAccount`) implementing design patterns (Strategy Pattern for payment providers, Factory Pattern for payment methods).
-- **Cross-Platform Compatibility**: Fully validated on macOS Safari, Windows Edge/Chrome, Linux, and Android/iOS mobile browsers.
-- **Real-Time Settlement Telemetry**: Interactive merchant dashboard displaying transaction volume, failure rate, and settlement speed.
+### Multi-Rail Interactive Checkout (`/checkout` & `/pay/:intentId`)
+- **Credit & Debit Cards**: Interactive **3D Physical Card Preview** (live embossing, network themes, smooth 180° flip on CVV focus), Mod 10 Luhn validation, BIN network detection, and vaulted tokenized card quick-pay.
+- **3D Secure 2.0 (SCA) Challenge**: Risk-based [RiskEngine](file:///server/src/services/RiskEngine.ts) evaluates transaction value and card triggers (`...3333` or `>= $200 USD`) to present an accessible OTP verification challenge (`123456`) before capture.
+- **Real Scannable UPI QR & VPA Verification**: Generates genuine **ISO/IEC 18004** QR matrices (`qrcode`) encoding NPCI-compliant `upi://pay?...` deep links, a 3:00 countdown timer, interactive mobile collect handshake simulation, and live VPA beneficiary lookup (`POST /api/v1/payments/upi/verify`).
+- **NetBanking, Digital Wallets & EMI**: Bank clearing selection (`HDFC`, `ICICI`, `SBI`, `AXIS`, `CHASE`, `CITI`), Express Wallets (`Apple Pay`, `Google Pay`, `VisaPay Wallet`), and real-time 3/6/9/12-month EMI installment calculator.
+- **Commercial Order Summary**: Split-screen layout with multi-currency FX switcher (`USD`, `INR`, `EUR`, `GBP`), quantity steppers, promo codes (`VISAPAY20`, `DEVFREE`), 4-stage live authorization pipeline overlay, and printable invoices with receipt verification QR codes.
+
+### Merchant Operations Console (`/dashboard`)
+- **Overview & Telemetry**: Gross Volume, Net Settled Volume, Refunded Volume, Approval Rate, Average Ticket Size, Recharts revenue trend area chart with **WCAG 1.1.1 Accessible Table View toggle**, and network distribution breakdown.
+- **Transaction Audit Drawer & Refunds**: Filterable, searchable, paginated ledger with **CSV Export** and a slide-over audit drawer supporting **Full & Partial Refunds**.
+- **Hosted Payment Links**: Create shareable `/pay/:intentId` checkout invoices with custom titles, amounts, and currencies.
+- **Developers & Webhooks**: Inspect **HMAC-SHA256** signed webhook deliveries (`X-VisaPay-Signature: t=...,v1=...`), view JSON event envelopes, trigger event replays, and rotate API keys.
 
 ---
 
-## Tech Stack
+## Software Engineering Principles & Patterns
 
-* **Frontend**: React 18/19, TypeScript, Vite, Tailwind CSS, Lucide Icons, Headless UI (for unstyled accessible primitives).
-* **Backend**: Node.js, Express, RESTful APIs, Zod validation, UUIDv4.
-* **Accessibility Auditing**: `axe-core`, `@testing-library/react`, NVDA, Apple VoiceOver.
-* **Testing & Tooling**: Jest, React Testing Library, ESLint, Prettier, Git, Docker.
+- **Object-Oriented Design (OOD) & Encapsulation**: Abstract `PaymentMethod` extended by `CreditCard`, `UpiPayment`, `NetBankingPayment`, `WalletPayment`, and `EmiPayment` using private `#` ECMAScript fields to prevent sensitive PAN/CVV leakage.
+- **Factory Pattern (`PaymentMethodFactory`)**: Polymorphically instantiates the appropriate payment domain model from incoming request DTOs.
+- **Strategy Pattern (`PaymentStrategyResolver`)**: Routes authorizations across `VisaNetStrategy`, `MastercardStrategy`, `AmexStrategy`, `UpiStrategy`, `NetBankingStrategy`, `WalletStrategy`, and `EmiStrategy` (**Open-Closed Principle**).
+- **Finite State Machine (`Transaction`)**: Enforces valid lifecycle transitions (`PENDING -> APPROVED | DECLINED -> PARTIALLY_REFUNDED | REFUNDED`).
+- **Idempotency & Fault Tolerance**: UUIDv4 `Idempotency-Key` middleware prevents duplicate charges on retries (`X-Cache-Lookup: HIT`), skipping intermediate `REQUIRES_ACTION` 3DS states.
+- **Defense-in-Depth Security**: `bcrypt` password hashing, signed `HS256` JWT sessions, OWASP HTTP security headers (`nosniff`, `X-Frame-Options: DENY`, `HSTS`), Zod runtime validation, and sanitized production error responses.
 
 ---
 
-## Project Structure
+## Accessibility Engineering (WCAG 2.0 AA / Section 508)
+
+| Standard | Implementation | Criterion |
+|---|---|---|
+| **Keyboard & Focus** | Full tab traversal, visible 3px focus outlines (`outline-offset-2`), and off-screen `SkipLink`. | 2.1.1, 2.4.1, 2.4.7 |
+| **Screen Readers & ARIA** | Semantic landmarks, `<fieldset>`/`<legend>`, `aria-describedby` errors, and `LiveAnnouncer` (`aria-live`). | 1.3.1, 4.1.2, 4.1.3 |
+| **Modal Focus Traps** | `FocusTrap` locks keyboard focus inside 3DS2, Receipt, and Audit Drawer modals with `Escape` dismissal. | 2.1.2, 2.4.3 |
+| **Non-Text Alternatives** | **Accessible Table View** toggle on settlement charts; decorative 3D card marked `aria-hidden="true"`. | 1.1.1 |
+| **Contrast & Touch Targets** | High-contrast monochrome mode toggle and `48x48px` minimum button/input touch targets. | 1.4.3, 2.5.5 |
+
+---
+
+## Monorepo Project Structure
 
 ```text
 visapay-accessible-payment-gateway/
-├── .github/workflows/ci.yml      # Automated lint, build, and accessibility tests
-├── src/
-│   ├── components/
-│   │   ├── AccessibleButton.tsx  # Keyboard-focused button with ARIA attributes
-│   │   ├── AccessibleInput.tsx   # Input with dynamic error description
-│   │   ├── CardInput.tsx         # Luhn-validated card number input
-│   │   ├── CheckoutModal.tsx     # Focus-trapped accessible dialog
-│   │   └── MerchantDashboard.tsx # Transaction analytics and charts
-│   ├── models/                   # Object-Oriented Domain Models
-│   │   ├── Transaction.ts
-│   │   ├── PaymentMethod.ts
-│   │   └── Merchant.ts
-│   ├── services/
-│   │   ├── paymentService.ts     # API communication and tokenization
-│   │   └── luhnValidator.ts      # Checksum verification algorithm
-│   ├── App.tsx                   # Main application layout
-│   └── main.tsx
-├── tests/
-│   ├── accessibility.test.tsx    # Axe-core automated accessibility tests
-│   ├── paymentService.test.ts    # Unit tests for payment processing logic
-│   └── checkout.test.tsx         # User interaction and usability tests
-├── package.json
-├── tsconfig.json
-├── tailwind.config.js
-└── README.md
+├── packages/shared/           # @visapay/shared — OOD models, Factory/Strategy patterns, Zod schemas, Luhn
+├── server/                    # Express API (:3001), Prisma ORM (SQLite), RiskEngine, WebhookService
+│   ├── prisma/                # schema.prisma & seed.ts
+│   └── src/                   # controllers, middleware, routes, services, verification suites
+├── client/                    # React 18 + Vite + Tailwind CSS (:5173 dev / static served in prod)
+│   └── src/                   # components (checkout, dashboard, layout, ui), contexts, pages, tests
+├── .github/workflows/ci.yml   # GitHub Actions CI pipeline
+├── Dockerfile                 # Multi-stage production container
+└── docker-compose.yml         # Container orchestration
 ```
 
 ---
 
-## Getting Started
+## Quickstart & Local Setup
+
+### Prerequisites
+- **Node.js** v20+ (tested on Node v24.14.1)
+- **npm** v10+
 
 ### 1. Clone & Install
 ```bash
@@ -152,83 +129,88 @@ cd visapay-accessible-payment-gateway
 npm install
 ```
 
-### 2. Start Development Server
+### 2. Configure Environment & Database
+Create `server/.env` from `.env.example` (never commit `.env` files):
 ```bash
+cp .env.example server/.env
+```
+Generate Prisma client, push schema, and seed demo data:
+```bash
+npm run prisma:generate --workspace=server
+npx --workspace=server prisma db push
+npm run prisma:seed --workspace=server
+```
+
+### 3. Build & Run
+```bash
+# Build all workspaces (shared, client, server)
+npm run build
+
+# Start unified production server (serves API + React client on http://localhost:3001)
+npm run start --workspace=server
+
+# Or run development servers concurrently (client :5173 + server :3001)
 npm run dev
 ```
-Navigate to `http://localhost:5173` in your browser.
+
+---
+
+## Sandbox Credentials & Deterministic Test Scenarios
+
+A collapsible **Sandbox Tools** drawer in the bottom-right corner provides 1-click auto-fill without cluttering the commercial UI.
+
+### Merchant Console Login
+- **Email**: `merchant@visapay.demo`
+- **Password**: `Password123`
+
+### Test Cards, VPAs & Promo Codes
+
+| Scenario | Input | Expected Outcome |
+|---|---|---|
+| **Standard Approval** | `4242 4242 4242 4242` | `201 APPROVED` — Instant settlement & signed webhook. |
+| **3DS2 OTP Challenge** | `4111 1111 1111 3333` *(or amount >= $200)* | Triggers 3DS2 modal (`OTP: 123456`) → `AUTHENTICATED`. |
+| **Insufficient Funds** | `4111 1111 1115 0002` | `402 DECLINED` — VisaNet Code 05. |
+| **Fraud Risk Block** | `4111 1111 1113 0004` | `402 DECLINED` — VisaNet Code 59. |
+| **UPI Instant Approval** | `alex@visapay` | `201 APPROVED` — Instant settlement on UPI rails. |
+| **UPI Collect Decline** | `declined@visapay` | `402 DECLINED` — User rejected collect request (U17). |
+| **Promo Discounts** | `VISAPAY20` / `DEVFREE` | Applies 20% off / $10 off in Order Summary. |
 
 ---
 
 ## Automated Testing & Accessibility Audits
 
-Run the test suite including **Axe-core** accessibility assertions:
+```bash
+# Run client unit, checkout, dashboard & Axe-core WCAG 2.0 AA suites (14 tests)
+npm run test:client
+
+# Run standalone Axe-core WCAG 2.0 AA + Section 508 audit
+npm run test:a11y
+
+# Run backend OOD, auth, multi-rail, 3DS2, refund & webhook integration suites
+npm run test:server
+```
+
+---
+
+## Docker Deployment
 
 ```bash
-npm test
-```
-
-### Sample Accessibility Test Output:
-```text
- PASS  tests/accessibility.test.tsx
-  VisaPay Accessibility Compliance (WCAG 2.0 / Section 508)
-    ✓ should have zero violations on initial checkout render (142 ms)
-    ✓ should maintain visible focus states during keyboard tab navigation (45 ms)
-    ✓ should announce validation errors via aria-live regions (38 ms)
-    ✓ should trap focus within modal dialogs until dismissed (52 ms)
-
-Test Suites: 3 passed, 3 total
-Tests:       18 passed, 18 total
-Snapshots:   0 total
-Time:        2.14 s
+# Build and start full-stack container on port 3001
+JWT_SECRET=your_secure_random_secret docker-compose up --build
 ```
 
 ---
 
-## API Reference
+## REST API Reference
 
-### Process Payment Transaction
-`POST /api/v1/payments/charge`
-
-**Request:**
-```json
-{
-  "amount": 49.99,
-  "currency": "USD",
-  "idempotency_key": "7b8a9c2e-4d5f-4a1b-9e2d-8f3a1b2c3d4e",
-  "payment_token": "tok_visa_4242_mock",
-  "billing_details": {
-    "name": "Jane Doe",
-    "email": "jane.doe@example.com",
-    "postal_code": "94128"
-  }
-}
-```
-
-**Response (`201 Created`):**
-```json
-{
-  "transaction_id": "txn_visa_9876543210",
-  "status": "APPROVED",
-  "network": "VisaNet",
-  "auth_code": "VISA_AUTH_2026",
-  "timestamp": "2026-11-05T18:30:00Z"
-}
-```
+- **Auth**: `POST /api/v1/auth/register`, `POST /api/v1/auth/login`, `GET /api/v1/auth/me`
+- **Payments**: `POST /api/v1/payments/charge`, `POST /api/v1/payments/tokenize`, `POST /api/v1/payments/upi/verify`, `POST /api/v1/payments/3ds/verify`
+- **Ledger & Refunds**: `GET /api/v1/payments/transactions`, `GET /api/v1/payments/transactions/:id`, `POST /api/v1/payments/transactions/:id/refund`
+- **Payment Links**: `POST /api/v1/payment-intents`, `GET /api/v1/payment-intents`, `GET /api/v1/payment-intents/:id`
+- **Merchant Console**: `GET /api/v1/merchants/dashboard`, `GET /api/v1/merchants/webhooks`, `POST /api/v1/merchants/webhooks/:id/replay`, `POST /api/v1/merchants/api-keys/rotate`
 
 ---
 
-## Core Engineering & Software Methodologies Applied
+## License
 
-- **Agile / Scrum**: Developed through iterative 2-week sprints with user story mapping, sprint reviews, and retrospective adjustments.
-- **Object-Oriented Design (OOD)**: Domain interfaces, encapsulation of card validation rules, and polymorphism for payment processors.
-- **User-Centered Design**: Built with user feedback at every phase, transforming complex financial data into clear, accessible user interfaces.
-
----
-
-## Author
-**Anurag Kumar**  
-- **GitHub**: [@anuragsinghmusics-wq](https://github.com/anuragsinghmusics-wq)  
-- **LinkedIn**: [Anurag Singh](https://www.linkedin.com/in/anurag-singh-398a70322/)  
-- **Email**: anuragsinghmusics@gmail.com
-
+MIT License — see [LICENSE](LICENSE) for details.

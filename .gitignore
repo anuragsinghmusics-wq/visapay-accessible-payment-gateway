@@ -1,6 +1,24 @@
+# Dependencies
 node_modules/
-dist/
-.env
-.DS_Store
-coverage/
 
+# Build & TypeScript Cache
+dist/
+*.tsbuildinfo
+
+# Environment & Secrets (never commit real .env files)
+.env
+*.env
+!.env.example
+
+# Local SQLite Database Files
+*.db
+*.db-journal
+*.sqlite
+
+# OS & Logs
+.DS_Store
+Thumbs.db
+*.log
+
+# Test Coverage
+coverage/
