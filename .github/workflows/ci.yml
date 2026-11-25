@@ -11,6 +11,10 @@ jobs:
     name: Build, Lint & WCAG Test
     runs-on: ubuntu-latest
 
+    env:
+      DATABASE_URL: "file:./test.db"
+      JWT_SECRET: "ci_ephemeral_test_jwt_secret"
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,6 +30,11 @@ jobs:
 
       - name: Generate Prisma Client
         run: npm run prisma:generate --workspace=server
+
+      - name: Push Prisma Schema & Seed Test DB
+        run: |
+          npx --workspace=server prisma db push --accept-data-loss
+          npm run prisma:seed --workspace=server
 
       - name: Build Shared Types & Schemas
         run: npm run build:shared
