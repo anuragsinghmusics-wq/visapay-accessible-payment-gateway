@@ -211,6 +211,3 @@ JWT_SECRET=your_secure_random_secret docker-compose up --build
 
 ---
 
-## License
-
-MIT License — see [LICENSE](LICENSE) for details.
